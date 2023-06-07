@@ -27,6 +27,7 @@ class Author(models.Model):
 class Book(models.Model):
     name=models.CharField(verbose_name='Название книги',max_length=255)
     genre=models.ForeignKey(Genre,verbose_name='Жанр',null=True,blank=True, on_delete=models.CASCADE)
+    description=models.TextField(verbose_name='Описание книги',null=True,blank=True)
     author=models.ForeignKey(Author,null=True,blank=True,on_delete=models.CASCADE)
     avg_rating=models.IntegerField(verbose_name='Средний рейтинг',default=0)
     date_published=models.DateField(verbose_name='Дата публикации',auto_now=True)
