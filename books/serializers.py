@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Book,Favourites,Genre,Author, Review
 from authorization.serializers import UserSerializer
+from django.forms import Form
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,7 +30,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 class BookSelfSerializer(serializers.ModelSerializer):
     genre_name=GenreSerializer(source='genre')
     author_name=AuthorSerializer(source='author')
-    reviews_list=ReviewSerializer(source='reviews')
+    reviews_list=ReviewSerializer(many=True,source='reviews')
 
     class Meta:
         model=Book
@@ -40,3 +41,6 @@ class FavouriteSerializer(serializers.ModelSerializer):
     class Meta:
         model=Favourites
         fields='__all__'
+
+class FavouriteInitSerializer(serializers.Serializer):
+    book_id=serializers.IntegerField()
